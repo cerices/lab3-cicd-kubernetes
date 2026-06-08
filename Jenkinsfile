@@ -64,7 +64,9 @@ pipeline {
 			steps {
 				container('kubectl') {
 					sh '''
+					  set +x
 					  SA=/var/run/secrets/kubernetes.io/serviceaccount
+					  KUBE_TOKEN=$(cat $SA/token)
 
 					  kubectl \
 					    --server=https://kubernetes.default.svc \
