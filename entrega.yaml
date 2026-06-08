@@ -40,9 +40,8 @@ spec:
       containers:
         - name: app-claudia-erices
           image: cerices/tarea-final:claudia-erices
+          
           imagePullPolicy: Always
-          ports:
-            - containerPort: 80
           env:
             - name: AMBIENTE
               valueFrom:
@@ -54,6 +53,15 @@ spec:
                 secretKeyRef:
                   name: secret-claudia-erices
                   key: API_KEY
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
