@@ -63,20 +63,27 @@ pipeline {
 		stage('deploy') {
 			steps {
 				container('kubectl') {
-					withCredentials([
-						file(
-							credentialsId: 'kubeconfig-lab',
-							variable: 'KUBECONFIG_FILE'
-						)
-					]){
-						sh '''
-						  export KUBECONFIG=$KUBECONFIG_FILE
+					sh '''
+					  SA=/var/run/secrets/kubernetes.io/serviceaccount
 
-					  	  kubectl apply -f entrega.yaml
-					  	  kubectl rollout status deployment/app-claudia-erices -n ns-claudia-erices
-					  	  kubectl get pods -n $K8S_NAMESPACE
-						'''
-					}
+					  kubectl \
+					    --server=https://kubernetes.default.svc \
+					    --certificate-authority=$SA/ca.crt \
+					    --token=$(cat $SA/token) \
+					    apply -f entrega.yaml
+
+					  kubectl \
+					    --server=https://kubernetes.default.svc \
+					    --certificate-authority=$SA/ca.crt \
+					    --token=$(cat $SA/token) \
+					    rollout status deployment/$DEPLOYMENT_NAME -n $K8S_NAMESPACE
+
+					  kubectl \
+					    --server=https://kubernetes.default.svc \
+					    --certificate-authority=$SA/ca.crt \
+					    --token=$(cat $SA/token) \
+					    get pods -n $K8S_NAMESPACE
+					 '''
 				}
 			}
 		}	
