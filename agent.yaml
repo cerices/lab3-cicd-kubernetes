@@ -19,7 +19,7 @@ spec:
       tty: true
       volumeMounts:
         - name: docker-sock
-          mountPath: /var/run/docker-sock
+          mountPath: /var/run/docker.sock
 
     - name: kubectl
       image: bitnami/kubectl:latest
