@@ -83,7 +83,7 @@ pipeline {
 					    --certificate-authority=$SA/ca.crt \
 					    --token=$(cat $SA/token) \
 					    get pods -n $K8S_NAMESPACE
-					 '''
+					'''
 				}
 			}
 		}	
