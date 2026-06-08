@@ -1,0 +1,5 @@
+
+> laboratorio-cicd-kubernetes@3.0.0 start
+> node server.js
+
+Servidor escuchando en puerto 80

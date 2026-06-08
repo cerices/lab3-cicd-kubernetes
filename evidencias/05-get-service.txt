@@ -1,0 +1,2 @@
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+svc-claudia-erices   ClusterIP   10.96.98.237   <none>        80/TCP    2m42s

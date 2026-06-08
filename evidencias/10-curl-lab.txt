@@ -1,0 +1,1 @@
+{"mensaje":"Laboratorio 3 - CI/CD en Kubernetes","ambiente":"laboratorio","api_key":"API_KEY cargada correctamente"}

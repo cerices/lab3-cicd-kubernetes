@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  AMBIENTE: laboratorio
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"AMBIENTE":"laboratorio"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"config-claudia-erices","namespace":"ns-claudia-erices"}}
+  creationTimestamp: "2026-06-07T14:55:28Z"
+  name: config-claudia-erices
+  namespace: ns-claudia-erices
+  resourceVersion: "1453389"
+  uid: c659767a-57f4-4ec8-bdc6-a8271b3ed77e

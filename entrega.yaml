@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-claudia-erices
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-claudia-erices
+  namespace: ns-claudia-erices
+data:
+  AMBIENTE: "laboratorio"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-claudia-erices
+  namespace: ns-claudia-erices
+type: Opaque
+stringData:
+  API_KEY: "api-key-laboratorio-123"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-claudia-erices
+  namespace: ns-claudia-erices
+  labels:
+    app: app-claudia-erices
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-claudia-erices
+  template:
+    metadata:
+      labels:
+        app: app-claudia-erices
+    spec:
+      containers:
+        - name: app-claudia-erices
+          image: cerices/tarea-final:claudia-erices
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: AMBIENTE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-claudia-erices
+                  key: AMBIENTE
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-claudia-erices
+                  key: API_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-claudia-erices
+  namespace: ns-claudia-erices
+  labels:
+    app: svc-claudia-erices
+spec:
+  type: ClusterIP
+  selector:
+    app: app-claudia-erices
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
